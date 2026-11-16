@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎮 Anime & Gamer Vault</title>
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --border-color: #30363d;
+      --accent-blue: #58a6ff;
+      --accent-green: #238636;
+      --accent-green-hover: #2ea043;
+      --text-primary: #c9d1d9;
+      --text-secondary: #8b949e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    h1 {
+      color: var(--accent-blue);
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 0 12px rgba(88, 166, 255, 0.35);
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 600px) {
+      .form-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    input,
+    select {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.65rem 0.8rem;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+    }
+
+    .btn-submit {
+      margin-top: 1.2rem;
+      width: 100%;
+      background-color: var(--accent-green);
+      color: #ffffff;
+      border: 1px solid rgba(240, 246, 252, 0.1);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--accent-green-hover);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      color: var(--accent-blue);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .item-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .item-card:hover {
+      border-color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .item-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .badge {
+      display: inline-block;
+      width: fit-content;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background-color: rgba(88, 166, 255, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid var(--accent-blue);
+    }
+
+    .badge.anime {
+      background-color: rgba(35, 134, 54, 0.2);
+      color: #3fb950;
+      border-color: var(--accent-green);
+    }
+
+    .item-score {
+      font-size: 0.95rem;
+      color: #f2cc60;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .score-num {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-left: 0.35rem;
+    }
+
+    .empty-state,
+    .status-msg {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      background-color: var(--card-bg);
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+    }
+
+    .error-msg {
+      color: #f85149;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎮 Anime &amp; Gamer Vault</h1>
+      <p class="subtitle">Tu bóveda personal de videojuegos y anime en Azure SQL</p>
+    </header>
+
+    <section class="card">
+      <form id="vaultForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="titulo">Título</label>
+            <input
+              type="text"
+              id="titulo"
+              name="titulo"
+              placeholder="Ej. Cyberpunk 2077, Attack on Titan..."
+              maxlength="100"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="categoria">Categoría</label>
+            <select id="categoria" name="categoria" required>
+              <option value="Videojuego">Videojuego</option>
+              <option value="Anime">Anime</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="puntuacion">Puntuación (1-10)</label>
+            <input
+              type="number"
+              id="puntuacion"
+              name="puntuacion"
+              min="1"
+              max="10"
+              value="10"
+              required
+            />
+          </div>
+        </div>
+
+        <p id="formError" class="error-msg"></p>
+        <button type="submit" id="submitBtn" class="btn-submit">Guardar en la Bóveda</button>
+      </form>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <span>Catálogo Guardado</span>
+      </div>
+      <div id="itemsContainer" class="items-list">
+        <div class="status-msg">Cargando catálogo...</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const vaultForm = document.getElementById('vaultForm');
+    const itemsContainer = document.getElementById('itemsContainer');
+    const submitBtn = document.getElementById('submitBtn');
+    const formError = document.getElementById('formError');
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    async function loadItems() {
+      try {
+        const response = await fetch('/api/items');
+        if (!response.ok) {
+          throw new Error('No se pudo cargar el catálogo');
+        }
+        const items = await response.json();
+
+        if (!Array.isArray(items) || items.length === 0) {
+          itemsContainer.innerHTML = '<div class="empty-state">Aún no hay elementos guardados en la bóveda. ¡Agrega el primero!</div>';
+          return;
+        }
+
+        itemsContainer.innerHTML = items
+          .map((item) => {
+            const titulo = item.Titulo || item.titulo || '';
+            const categoria = item.Categoria || item.categoria || 'Videojuego';
+            const puntuacion = Math.min(10, Math.max(1, Number(item.Puntuacion || item.puntuacion || 1)));
+            const stars = '⭐'.repeat(puntuacion);
+            const badgeClass = categoria.toLowerCase() === 'anime' ? 'badge anime' : 'badge';
+
+            return `
+              <article class="item-card">
+                <div class="item-info">
+                  <span class="item-title">${escapeHtml(titulo)}</span>
+                  <span class="${badgeClass}">${escapeHtml(categoria)}</span>
+                </div>
+                <div class="item-score" title="Puntuación: ${puntuacion} de 10">
+                  <span>${stars}</span>
+                  <span class="score-num">(${puntuacion}/10)</span>
+                </div>
+              </article>
+            `;
+          })
+          .join('');
+      } catch (error) {
+        itemsContainer.innerHTML = '<div class="empty-state">Error al conectar con el servidor o la base de datos.</div>';
+      }
+    }
+
+    vaultForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      formError.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Guardando...';
+
+      const payload = {
+        titulo: document.getElementById('titulo').value.trim(),
+        categoria: document.getElementById('categoria').value,
+        puntuacion: Number(document.getElementById('puntuacion').value)
+      };
+
+      try {
+        const response = await fetch('/api/items', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || 'Error al guardar el elemento.');
+        }
+
+        vaultForm.reset();
+        document.getElementById('puntuacion').value = '10';
+        await loadItems();
+      } catch (error) {
+        formError.textContent = error.message;
+        formError.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Guardar en la Bóveda';
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', loadItems);
+  </script>
+</body>
+</html>
